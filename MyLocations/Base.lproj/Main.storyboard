@@ -371,6 +371,9 @@
                                         </label>
                                     </subviews>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <segue destination="Lb6-c0-Kad" kind="unwind" identifier="PickedCategory" unwindAction="categoryPickerDidPickCategory:" id="cbz-Yu-DQE"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
@@ -380,6 +383,7 @@
                     </tableView>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yg8-gs-iJj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="Lb6-c0-Kad" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="3449" y="-394"/>
         </scene>

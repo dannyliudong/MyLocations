@@ -37,6 +37,12 @@ class LocationDetailsViewController: UITableViewController {
     @IBAction func cancel() {
         dismiss(animated: true, completion: nil)
     }
+    
+    @IBAction func categoryPickerDidPickCategory(_ segue: UIStoryboardSegue) {
+        let controller = segue.source as! CategoryPickerViewController
+        categoryName = controller.selectedCategoryName
+        categoryLabel.text = categoryName
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
