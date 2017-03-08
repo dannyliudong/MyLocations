@@ -14,6 +14,8 @@
 		7B289E411D3E090000AE718D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7B289E401D3E090000AE718D /* Assets.xcassets */; };
 		7B289E441D3E090000AE718D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7B289E421D3E090000AE718D /* LaunchScreen.storyboard */; };
 		A051E3021E6D4E2900A85CA3 /* LocationDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A051E3011E6D4E2900A85CA3 /* LocationDetailsViewController.swift */; };
+		A0B0280C1E6F976100E39462 /* CategoryPickerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0280B1E6F976100E39462 /* CategoryPickerViewController.swift */; };
+		A0B0280E1E6FEDF300E39462 /* TestTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0B0280D1E6FEDF300E39462 /* TestTableViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +28,8 @@
 		7B289E431D3E090000AE718D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		7B289E451D3E090000AE718D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A051E3011E6D4E2900A85CA3 /* LocationDetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocationDetailsViewController.swift; sourceTree = "<group>"; };
+		A0B0280B1E6F976100E39462 /* CategoryPickerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CategoryPickerViewController.swift; sourceTree = "<group>"; };
+		A0B0280D1E6FEDF300E39462 /* TestTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TestTableViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,7 +65,9 @@
 				7B289E371D3E090000AE718D /* AppDelegate.swift */,
 				7B289E391D3E090000AE718D /* CurrentLocationViewController.swift */,
 				A051E3011E6D4E2900A85CA3 /* LocationDetailsViewController.swift */,
+				A0B0280B1E6F976100E39462 /* CategoryPickerViewController.swift */,
 				7B289E3B1D3E090000AE718D /* SecondViewController.swift */,
+				A0B0280D1E6FEDF300E39462 /* TestTableViewController.swift */,
 				7B289E3D1D3E090000AE718D /* Main.storyboard */,
 				7B289E401D3E090000AE718D /* Assets.xcassets */,
 				7B289E421D3E090000AE718D /* LaunchScreen.storyboard */,
@@ -146,7 +152,9 @@
 				A051E3021E6D4E2900A85CA3 /* LocationDetailsViewController.swift in Sources */,
 				7B289E3C1D3E090000AE718D /* SecondViewController.swift in Sources */,
 				7B289E381D3E090000AE718D /* AppDelegate.swift in Sources */,
+				A0B0280C1E6F976100E39462 /* CategoryPickerViewController.swift in Sources */,
 				7B289E3A1D3E090000AE718D /* CurrentLocationViewController.swift in Sources */,
+				A0B0280E1E6FEDF300E39462 /* TestTableViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
