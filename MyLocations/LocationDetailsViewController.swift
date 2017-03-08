@@ -61,6 +61,20 @@ class LocationDetailsViewController: UITableViewController {
         
         dateLabel.text = format(date: Date())
         
+        let gestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(hideKeyboard))
+        tableView.addGestureRecognizer(gestureRecognizer)
+        
+    }
+    
+    func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
+        let point = gestureRecognizer.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: point)
+        
+        if indexPath != nil && indexPath!.section == 0 && indexPath!.row == 0{
+            return
+        }
+        
+        descriptionTextView.resignFirstResponder()
     }
 
     override func didReceiveMemoryWarning() {
@@ -101,7 +115,7 @@ class LocationDetailsViewController: UITableViewController {
             descriptionTextView.becomeFirstResponder()
         }
     }
-
+    
     /*
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
