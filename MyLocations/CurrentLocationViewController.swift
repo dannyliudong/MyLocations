@@ -8,6 +8,7 @@
 
 import UIKit
 import CoreLocation
+import CoreData
 
 class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate {
   @IBOutlet weak var messageLabel: UILabel!
@@ -17,7 +18,9 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
   @IBOutlet weak var tagButton: UIButton!
   @IBOutlet weak var getButton: UIButton!
   
-  let locationManager = CLLocationManager()
+  
+    let locationManager = CLLocationManager()
+    var managedObjectContext: NSManagedObjectContext!
   
   var location: CLLocation?
   var updatingLocation = false
@@ -41,6 +44,17 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
     // Dispose of any resources that can be recreated.
   }
 
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "TagLocation" {
+      let navigationController = segue.destination as! UINavigationController
+      let controller = navigationController.topViewController as! LocationDetailsViewController
+      
+      controller.coordinate = location!.coordinate
+      controller.placemark = placemark
+        controller.managedObjectContext = managedObjectContext
+    }
+  }
+  
   @IBAction func getLocation() {
     let authStatus = CLLocationManager.authorizationStatus()
     
@@ -282,16 +296,5 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
       }
     }
   }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "TagLocation" {
-            let navc = segue.destination as! UINavigationController
-            let controller = navc.topViewController as! LocationDetailsViewController
-            
-            controller.coordinate = location!.coordinate
-            controller.placemark = placemark
-        }
-    }
-    
 }
 
