@@ -18,9 +18,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
   @IBOutlet weak var tagButton: UIButton!
   @IBOutlet weak var getButton: UIButton!
   
-  
-    let locationManager = CLLocationManager()
-    var managedObjectContext: NSManagedObjectContext!
+  let locationManager = CLLocationManager()
   
   var location: CLLocation?
   var updatingLocation = false
@@ -32,6 +30,8 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
   var lastGeocodingError: Error?
   
   var timer: Timer?
+  
+  var managedObjectContext: NSManagedObjectContext!
   
   override func viewDidLoad() {
     super.viewDidLoad()
@@ -51,7 +51,7 @@ class CurrentLocationViewController: UIViewController, CLLocationManagerDelegate
       
       controller.coordinate = location!.coordinate
       controller.placemark = placemark
-        controller.managedObjectContext = managedObjectContext
+      controller.managedObjectContext = managedObjectContext
     }
   }
   
