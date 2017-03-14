@@ -42,12 +42,24 @@ class LocationDetailsViewController: UITableViewController {
   var descriptionText = ""
 
   var managedObjectContext: NSManagedObjectContext!
-  
+    var observer: Any!
+    
+    deinit {
+        print("*** deinit \(self)")
+        NotificationCenter.default.removeObserver(observer)
+    }
+    
   override func viewDidLoad() {
     super.viewDidLoad()
     
     if let location = locationToEdit {
       title = "Edit Location"
+        
+        if location.hasPhoto {
+            if let theImage = location.photoImage {
+                show(theImage)
+            }
+        }
     }
 
     descriptionTextView.text = descriptionText
@@ -68,6 +80,8 @@ class LocationDetailsViewController: UITableViewController {
                                                    action: #selector(hideKeyboard))
     gestureRecognizer.cancelsTouchesInView = false
     tableView.addGestureRecognizer(gestureRecognizer)
+    
+    listenForBackgroundNotification()
   }
 
   func hideKeyboard(_ gestureRecognizer: UIGestureRecognizer) {
@@ -119,6 +133,7 @@ class LocationDetailsViewController: UITableViewController {
     } else {
       hudView.text = "Tagged"
       location = Location(context: managedObjectContext)
+        location.photoID = nil
     }
     
     location.locationDescription = descriptionTextView.text
@@ -127,6 +142,19 @@ class LocationDetailsViewController: UITableViewController {
     location.longitude = coordinate.longitude
     location.date = date
     location.placemark = placemark
+    
+    if let image = image {
+        if !location.hasPhoto {
+            location.photoID = Location.nextPhotoID() as NSNumber
+        }
+        if let data = UIImageJPEGRepresentation(image, 0.5) {
+            do {
+                try data.write(to: location.photoURL, options: .atomic)
+            } catch {
+                print("Error writing file:\(error)")
+            }
+        }
+    }
     
     do {
       try managedObjectContext.save()
@@ -163,24 +191,35 @@ class LocationDetailsViewController: UITableViewController {
         addPhotoLabel.isHidden = true
     }
     
+    func listenForBackgroundNotification() {
+        observer = NotificationCenter.default.addObserver(forName: Notification.Name.UIApplicationDidEnterBackground, object: nil, queue: OperationQueue.main) { [weak self] _ in
+            
+            if let strongSelf = self {
+                if strongSelf.presentedViewController != nil {
+                    strongSelf.dismiss(animated: false, completion: nil)
+                }
+                strongSelf.descriptionTextView.resignFirstResponder()
+            }
+        }
+    }
+    
   
   // MARK: - UITableViewDelegate
   
   override func tableView(_ tableView: UITableView,
                           heightForRowAt indexPath: IndexPath) -> CGFloat {
-    if indexPath.section == 0 && indexPath.row == 0 {
-      return 88
-      
-    } else if indexPath.section == 2 && indexPath.row == 2 {
-      addressLabel.frame.size = CGSize(width: view.bounds.size.width - 115, height: 10000)
-      addressLabel.sizeToFit()
-      addressLabel.frame.origin.x = view.bounds.size.width - addressLabel.frame.size.width - 15
-      return addressLabel.frame.size.height + 20
-      
-    } else {
-      return 44
+    switch (indexPath.section, indexPath.row) {
+    case (0, 0):
+        return 88
+    case (1, _):
+        return imageView.isHidden ? 44 : 280
+    case (2, 2):
+        addressLabel.frame.size = CGSize(width: view.bounds.size.width - 115, height: 10000)
+        return addressLabel.frame.size.height + 20
+    default:
+        return 44
     }
-  }
+    }
   
   override func tableView(_ tableView: UITableView,
                           willSelectRowAt indexPath: IndexPath) -> IndexPath? {
@@ -225,6 +264,7 @@ extension LocationDetailsViewController: UIImagePickerControllerDelegate, UINavi
         if let theImage = image {
             show(theImage)
         }
+        tableView.reloadData()
         dismiss(animated: true, completion: nil)
     }
     
